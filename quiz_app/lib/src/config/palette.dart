@@ -6,6 +6,9 @@ class Palette {
   static const kRedColor = Color(0xFFE92E30);
   static const kGrayColor = Color(0xFFC1C1C1);
   static const kBlackColor = Color(0xFF101010);
+  static const backgroundColor = Color(0xFF1C2341);
+  static const primaryColor1 = Color(0xFF46A0AE);
+  static const primaryColor2 = Color(0xFF00FFCB);
   static const kPrimaryGradient = LinearGradient(
     colors: [Color(0xFF46A0AE), Color(0xFF00FFCB)],
     begin: Alignment.centerLeft,
