@@ -1,2 +1,2 @@
-# Quuiz
+# Quiz
 Quiz app
