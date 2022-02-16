@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/screens/home/home_screen.dart';
 import 'package:quiz_app/src/screens/reset/forgot_password_screen.dart';
 import 'package:quiz_app/src/screens/reset/reset_password_screen.dart';
 import '../screens/signup/signup_screen.dart';
@@ -12,5 +13,6 @@ class AppRoutes {
     SignupScreen.routName: (ctx) => const SignupScreen(),
     ForgotPasswordScreen.routName: (ctx) => const ForgotPasswordScreen(),
     ResetPasswordScreen.routName: (ctx) => const ResetPasswordScreen(),
+    HomeScreen.routName: (cxt) => const HomeScreen(),
   };
 }

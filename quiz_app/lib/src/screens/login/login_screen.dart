@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/screens/home/home_screen.dart';
 import 'package:quiz_app/src/screens/reset/forgot_password_screen.dart';
 import 'package:quiz_app/src/screens/signup/signup_screen.dart';
 import '/src/widgets/rounded_btn.dart';
@@ -22,7 +23,9 @@ class _LoginScreenState extends State<LoginScreen> {
     final _isValid = _formKey.currentState!.validate();
     if (_isValid) {
       _formKey.currentState!.save();
-      try {} catch (e) {}
+      try {
+        Navigator.pushNamed(context, HomeScreen.routName);
+      } catch (e) {}
     }
   }
 
