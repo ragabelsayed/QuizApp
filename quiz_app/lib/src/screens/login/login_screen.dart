@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:quiz_app/src/screens/signup/signup_screen.dart';
 import '/src/widgets/rounded_btn.dart';
 import '../../config/constants.dart';
 import '../../config/palette.dart';
@@ -13,7 +14,6 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
-
   bool _isPassowrdVisible = true;
   Map<String, String> _userData = {'name': '', 'password': ''};
 
@@ -31,16 +31,13 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          SvgPicture.asset(
-            'assets/icons/bg.svg',
-            fit: BoxFit.fill,
-          ),
+          AppConstants.imageBackground,
           SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.defaultPadding),
-              child: Form(
-                key: _formKey,
+            child: Form(
+              key: _formKey,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: AppConstants.defaultPadding),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -111,6 +108,19 @@ class _LoginScreenState extends State<LoginScreen> {
                       },
                       onSaved: (newValue) => _userData['password'] = newValue!,
                     ),
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: const Text(
+                          'Forgot Password',
+                          style: TextStyle(
+                            color: Palette.kGrayColor,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ),
                     const Spacer(),
                     RoundedBtn(
                       text: 'Login',
@@ -122,9 +132,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       children: [
                         const Text("Don't have account? "),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () => Navigator.pushNamed(
+                              context, SignupScreen.routName),
                           style: TextButton.styleFrom(
-                              primary: Palette.kGreenColor),
+                            primary: Palette.kGreenColor,
+                          ),
                           child: const Text('SignUp'),
                         )
                       ],

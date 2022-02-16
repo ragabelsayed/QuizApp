@@ -15,10 +15,7 @@ class WelcomeScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          SvgPicture.asset(
-            'assets/icons/bg.svg',
-            fit: BoxFit.fill,
-          ),
+          AppConstants.imageBackground,
           Padding(
             padding: const EdgeInsets.symmetric(
                 horizontal: AppConstants.defaultPadding),
