@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/src/config/palette.dart';
+import 'package:quiz_app/src/screens/exam/exam_screen.dart';
 import '../../config/constants.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -9,7 +10,6 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -29,7 +29,8 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.all(Radius.circular(12)),
                     ),
                     child: ListTile(
-                      onTap: () {},
+                      onTap: () =>
+                          Navigator.pushNamed(context, ExamScreen.routName),
                       leading: SizedBox(
                         height: 55,
                         width: 55,
@@ -100,11 +101,6 @@ class HomeScreen extends StatelessWidget {
           ),
         ],
       ),
-      floatingActionButton: FloatingActionButton.extended(
-          backgroundColor: Palette.primaryColor1,
-          foregroundColor: Colors.white,
-          onPressed: () {},
-          label: Icon(Icons.quiz)),
     );
   }
 }
