@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/screens/exam/widget/exam_form.dart';
 import '../../config/constants.dart';
 import '../../config/palette.dart';
 
@@ -26,7 +27,7 @@ class ExamScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
           backgroundColor: Palette.primaryColor1,
           foregroundColor: Colors.white,
-          onPressed: () {},
+          onPressed: () => Navigator.pushNamed(context, ExamForm.routName),
           label: Icon(Icons.quiz)),
     );
   }
