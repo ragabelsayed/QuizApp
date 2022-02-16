@@ -1,5 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:quiz_app/src/screens/reset/forgot_password_screen.dart';
 import 'package:quiz_app/src/screens/signup/signup_screen.dart';
 import '/src/widgets/rounded_btn.dart';
 import '../../config/constants.dart';
@@ -111,7 +112,8 @@ class _LoginScreenState extends State<LoginScreen> {
                     Align(
                       alignment: Alignment.centerRight,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.pushNamed(
+                            context, ForgotPasswordScreen.routName),
                         child: const Text(
                           'Forgot Password',
                           style: TextStyle(

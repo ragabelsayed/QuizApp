@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:quiz_app/src/screens/login/login_screen.dart';
 import 'package:quiz_app/src/widgets/rounded_btn.dart';
 import '/src/config/constants.dart';
