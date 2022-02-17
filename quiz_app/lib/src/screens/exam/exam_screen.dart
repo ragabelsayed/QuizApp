@@ -33,6 +33,7 @@ class ExamScreen extends ConsumerWidget {
                 child: ItemView(
                   title: exams[i].subject,
                   subTitle: '${exams[i].question.length} Question',
+                  imagePath: 'assets/icons/exam.png',
                   onPress: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => QuizForm(examId: exams[i].id),
@@ -56,9 +57,3 @@ class ExamScreen extends ConsumerWidget {
     );
   }
 }
-  // floatingActionButton: FloatingActionButton.extended(
-  //         backgroundColor: Palette.primaryColor1,
-  //         foregroundColor: Colors.white,
-  //         onPressed: () => Navigator.pushNamed(context, ExamForm.routName),
-  //         label: Icon(Icons.quiz)),
-  //   );

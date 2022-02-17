@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/src/screens/exam/exam_screen.dart';
-import 'package:quiz_app/src/screens/exam/widget/quiz_input_form.dart';
-import 'package:quiz_app/src/screens/home/home_screen.dart';
-import 'package:quiz_app/src/screens/reset/forgot_password_screen.dart';
-import 'package:quiz_app/src/screens/reset/reset_password_screen.dart';
+import '../screens/exam/exam_screen.dart';
+import '../screens/exam/widget/quiz_input_form.dart';
+import '../screens/home/home_screen.dart';
+import '../screens/reset/forgot_password_screen.dart';
+import '../screens/reset/reset_password_screen.dart';
 import '../screens/signup/signup_screen.dart';
 import '../screens/login/login_screen.dart';
+import '../screens/student_board/student_board_screen.dart';
 import '../screens/welcome/welcome_screen.dart';
 
 class AppRoutes {
@@ -17,6 +18,7 @@ class AppRoutes {
     ResetPasswordScreen.routName: (ctx) => const ResetPasswordScreen(),
     HomeScreen.routName: (cxt) => const HomeScreen(),
     ExamScreen.routName: (ctx) => const ExamScreen(),
-    QuizForm.routName: (context) => const QuizForm(),
+    QuizForm.routName: (cxt) => const QuizForm(),
+    StudentBoardScreen.routName: (cxt) => const StudentBoardScreen(),
   };
 }

@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/provider/auth_provider.dart';
 import 'package:quiz_app/src/screens/home/home_screen.dart';
 import 'package:quiz_app/src/screens/reset/forgot_password_screen.dart';
 import 'package:quiz_app/src/screens/signup/signup_screen.dart';
@@ -16,17 +16,40 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool _isPassowrdVisible = true;
-  Map<String, String> _userData = {'name': '', 'password': ''};
+  bool _isError = false;
+  String _errorMessage =
+      'Error! Please check your connection and uour email,password.';
 
   Future<void> _saveForm() async {
     final _isValid = _formKey.currentState!.validate();
     if (_isValid) {
       _formKey.currentState!.save();
+      showDialog(
+        context: context,
+        builder: (ctx) => const Center(
+          child: CircularProgressIndicator(
+            color: Palette.primaryColor1,
+          ),
+        ),
+      );
       try {
+        await Auth.signIn(
+            emailController.text.trim(), passwordController.text.trim());
         Navigator.pushNamed(context, HomeScreen.routName);
-      } catch (e) {}
+      } catch (e) {
+        setState(() => _isError = !_isError);
+      }
     }
+  }
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
 
   @override
@@ -56,26 +79,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     TextFormField(
                       keyboardType: TextInputType.name,
                       textInputAction: TextInputAction.next,
+                      controller: emailController,
                       decoration: const InputDecoration(
                         filled: true,
                         fillColor: Palette.backgroundColor,
-                        hintText: "Full Name",
+                        hintText: 'Email',
                         border: AppConstants.border,
                         errorBorder: AppConstants.errorBorder,
                         focusedBorder: AppConstants.focusedBorder,
                       ),
                       validator: (newValue) {
                         if (newValue!.isEmpty) {
-                          return 'قُمْ بإدخال الإسم رجاءً';
+                          return 'Please enter your email';
                         }
                       },
-                      onSaved: (newValue) => _userData['name'] = newValue!,
                     ),
                     const SizedBox(height: 15),
                     TextFormField(
                       keyboardType: TextInputType.visiblePassword,
                       textInputAction: TextInputAction.done,
                       obscureText: _isPassowrdVisible,
+                      controller: passwordController,
                       decoration: InputDecoration(
                         fillColor: Palette.backgroundColor,
                         filled: true,
@@ -104,13 +128,12 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                       validator: (newValue) {
                         if (newValue!.isEmpty) {
-                          return 'قُمْ بإدخال كلمة السر رجاءً';
+                          return 'Please enter your password';
                         }
-                        if (newValue.length <= 4) {
-                          return 'كلمة السر أقل من 4 حروف';
+                        if (newValue.length <= 6) {
+                          return 'Password must be at least 6 characters';
                         }
                       },
-                      onSaved: (newValue) => _userData['password'] = newValue!,
                     ),
                     Align(
                       alignment: Alignment.centerRight,
@@ -126,6 +149,18 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
+                    if (_isError)
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            Text(
+                              _errorMessage,
+                              style: const TextStyle(color: Palette.kRedColor),
+                            )
+                          ],
+                        ),
+                      ),
                     const Spacer(),
                     RoundedBtn(
                       text: 'Login',
@@ -138,7 +173,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text("Don't have account? "),
                         TextButton(
                           onPressed: () => Navigator.pushNamed(
-                              context, SignupScreen.routName),
+                            context,
+                            SignupScreen.routName,
+                          ),
                           style: TextButton.styleFrom(
                             primary: Palette.kGreenColor,
                           ),

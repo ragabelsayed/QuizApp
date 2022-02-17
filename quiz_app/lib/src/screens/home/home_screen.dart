@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_app/src/config/palette.dart';
 import 'package:quiz_app/src/screens/exam/exam_screen.dart';
+import 'package:quiz_app/src/screens/welcome/welcome_screen.dart';
+import 'package:quiz_app/src/widgets/item_view.dart';
 import '../../config/constants.dart';
+import '../../provider/auth_provider.dart';
+import '../student_board/student_board_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   static const routName = '/home';
@@ -20,73 +24,20 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Material(
-                  clipBehavior: Clip.antiAlias,
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  child: Ink(
-                    decoration: const BoxDecoration(
-                      gradient: Palette.kPrimaryGradient,
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    child: ListTile(
-                      onTap: () =>
-                          Navigator.pushNamed(context, ExamScreen.routName),
-                      leading: SizedBox(
-                        height: 55,
-                        width: 55,
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(25)),
-                          child: Image.asset(
-                            'assets/icons/exam.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      title: const Text('Exams'),
-                      subtitle: const Text(
-                        'Hit there, good luck with quiz 😁',
-                        maxLines: 1,
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      trailing: const Icon(Icons.forward),
-                    ),
-                  ),
+                ItemView(
+                  title: 'Exams',
+                  subTitle: 'Hit there, good luck with quiz 😁',
+                  imagePath: 'assets/icons/exam.png',
+                  onPress: () =>
+                      Navigator.pushNamed(context, ExamScreen.routName),
                 ),
                 const SizedBox(height: 15),
-                Material(
-                  clipBehavior: Clip.antiAlias,
-                  borderRadius: const BorderRadius.all(Radius.circular(12)),
-                  child: Ink(
-                    decoration: const BoxDecoration(
-                      gradient: Palette.kPrimaryGradient,
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
-                    ),
-                    child: ListTile(
-                      onTap: () {},
-                      leading: SizedBox(
-                        height: 55,
-                        width: 55,
-                        child: ClipRRect(
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(25)),
-                          child: Image.asset(
-                            'assets/icons/student.png',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      title: const Text('Students'),
-                      subtitle: const Text(
-                        'Students list with there score',
-                        maxLines: 1,
-                        softWrap: false,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      trailing: const Icon(Icons.forward),
-                    ),
-                  ),
+                ItemView(
+                  title: 'Students',
+                  subTitle: 'Students list with there score',
+                  imagePath: 'assets/icons/student.png',
+                  onPress: () =>
+                      Navigator.pushNamed(context, StudentBoardScreen.routName),
                 ),
               ],
             ),
@@ -94,9 +45,18 @@ class HomeScreen extends StatelessWidget {
           Positioned(
             top: MediaQuery.of(context).viewPadding.top,
             right: 10,
-            child: IconButton(
-              onPressed: () {},
+            child: TextButton.icon(
+              style: TextButton.styleFrom(primary: Palette.primaryColor1),
+              onPressed: () async {
+                await Auth.signOut();
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  WelcomeScreen.routName,
+                  (route) => false,
+                );
+              },
               icon: const Icon(Icons.exit_to_app),
+              label: const Text('LogOut'),
             ),
           ),
         ],

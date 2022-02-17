@@ -4,11 +4,13 @@ import '../config/palette.dart';
 class ItemView extends StatelessWidget {
   final String title;
   final String subTitle;
+  final String imagePath;
   final Function onPress;
   const ItemView(
       {Key? key,
       required this.title,
       required this.subTitle,
+      required this.imagePath,
       required this.onPress})
       : super(key: key);
 
@@ -30,7 +32,7 @@ class ItemView extends StatelessWidget {
             child: ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(25)),
               child: Image.asset(
-                'assets/icons/exam.png',
+                imagePath,
                 fit: BoxFit.cover,
               ),
             ),
