@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/config/utils.dart';
 import '../../../config/constants.dart';
 import '../../../config/palette.dart';
+import '../../../provider/auth_provider.dart';
 import '../../../widgets/rounded_btn.dart';
+import '../../home/home_screen.dart';
 
 class SignupForm extends StatefulWidget {
   const SignupForm({Key? key}) : super(key: key);
@@ -12,22 +16,36 @@ class SignupForm extends StatefulWidget {
 
 class _SignupFormState extends State<SignupForm> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
   TextEditingController passController = TextEditingController();
   TextEditingController cPassController = TextEditingController();
 
   Future<void> _saveForm() async {
     final _isValid = _formKey.currentState!.validate();
-
     if (_isValid) {
       _formKey.currentState!.save();
-      try {} catch (e) {}
+      showDialog(
+        context: context,
+        builder: (ctx) => const Center(
+          child: CircularProgressIndicator(
+            color: Palette.primaryColor1,
+          ),
+        ),
+      );
+      try {
+        await Auth.signUp(
+            emailController.text.trim(), passController.text.trim());
+        Navigator.pushNamed(context, HomeScreen.routName);
+      } on FirebaseAuthException catch (e) {
+        Utils.showSnackBar(e.message);
+        Navigator.pop(context);
+      } catch (e) {}
     }
   }
 
   @override
   void dispose() {
-    nameController.dispose();
+    emailController.dispose();
     passController.dispose();
     cPassController.dispose();
     super.dispose();
@@ -56,18 +74,21 @@ class _SignupFormState extends State<SignupForm> {
             TextFormField(
               keyboardType: TextInputType.name,
               textInputAction: TextInputAction.next,
-              controller: nameController,
+              controller: emailController,
               decoration: const InputDecoration(
                 filled: true,
                 fillColor: Palette.backgroundColor,
-                hintText: "Full Name",
+                hintText: 'Email',
                 border: AppConstants.border,
                 errorBorder: AppConstants.errorBorder,
                 focusedBorder: AppConstants.focusedBorder,
               ),
               validator: (newValue) {
                 if (newValue!.isEmpty) {
-                  return 'قُمْ بإدخال الإسم رجاءً';
+                  return 'Please enter your email';
+                }
+                if (!AppConstants.emailValidatorRegExp.hasMatch(newValue)) {
+                  return 'Please enter valid email';
                 }
               },
             ),
@@ -86,10 +107,10 @@ class _SignupFormState extends State<SignupForm> {
               ),
               validator: (newValue) {
                 if (newValue!.isEmpty) {
-                  return 'قُمْ بإدخال كلمة السر رجاءً';
+                  return 'Please enter your password';
                 }
-                if (newValue.length <= 4) {
-                  return 'كلمة السر أقل من 4 حروف';
+                if (newValue.length <= 6) {
+                  return 'Password must be at least 6 characters';
                 }
               },
             ),
@@ -108,10 +129,10 @@ class _SignupFormState extends State<SignupForm> {
               ),
               validator: (newValue) {
                 if (newValue!.isEmpty) {
-                  return 'قُمْ بتاكيد كلمة السر رجاءً';
+                  return 'Please confirm your password';
                 }
                 if (passController.text != cPassController.text) {
-                  return 'كلمة السر لاتتطابق';
+                  return "Your password does not match";
                 }
               },
             ),

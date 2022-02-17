@@ -9,6 +9,8 @@ class AppConstants {
     'assets/icons/bg.svg',
     fit: BoxFit.fill,
   );
+  static final RegExp emailValidatorRegExp =
+      RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+");
   static const OutlineInputBorder border = OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(12)),
   );

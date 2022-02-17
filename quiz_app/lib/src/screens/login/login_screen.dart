@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz_app/src/provider/auth_provider.dart';
 import 'package:quiz_app/src/screens/home/home_screen.dart';
 import 'package:quiz_app/src/screens/reset/forgot_password_screen.dart';
 import 'package:quiz_app/src/screens/signup/signup_screen.dart';
+import '../../config/utils.dart';
 import '/src/widgets/rounded_btn.dart';
 import '../../config/constants.dart';
 import '../../config/palette.dart';
@@ -19,9 +21,6 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool _isPassowrdVisible = true;
-  bool _isError = false;
-  String _errorMessage =
-      'Error! Please check your connection and uour email,password.';
 
   Future<void> _saveForm() async {
     final _isValid = _formKey.currentState!.validate();
@@ -39,9 +38,10 @@ class _LoginScreenState extends State<LoginScreen> {
         await Auth.signIn(
             emailController.text.trim(), passwordController.text.trim());
         Navigator.pushNamed(context, HomeScreen.routName);
-      } catch (e) {
-        setState(() => _isError = !_isError);
-      }
+      } on FirebaseAuthException catch (e) {
+        Utils.showSnackBar(e.message);
+        Navigator.pop(context);
+      } catch (e) {}
     }
   }
 
@@ -91,6 +91,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       validator: (newValue) {
                         if (newValue!.isEmpty) {
                           return 'Please enter your email';
+                        }
+                        if (!AppConstants.emailValidatorRegExp
+                            .hasMatch(newValue)) {
+                          return 'Please enter valid email';
                         }
                       },
                     ),
@@ -149,18 +153,6 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                     ),
-                    if (_isError)
-                      SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            Text(
-                              _errorMessage,
-                              style: const TextStyle(color: Palette.kRedColor),
-                            )
-                          ],
-                        ),
-                      ),
                     const Spacer(),
                     RoundedBtn(
                       text: 'Login',
