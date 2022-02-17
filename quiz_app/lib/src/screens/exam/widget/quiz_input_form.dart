@@ -1,23 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz_app/src/models/exam.dart';
+import 'package:quiz_app/src/models/question.dart';
+import 'package:quiz_app/src/provider/exam_provider.dart';
 import 'package:quiz_app/src/screens/exam/widget/input_text.dart';
 import 'package:quiz_app/src/widgets/input_title.dart';
 import '../../../config/constants.dart';
 import '../../../config/palette.dart';
 import '../../../widgets/rounded_btn.dart';
 
-class ExamForm extends StatefulWidget {
-  static const routName = '/exam_form';
-  const ExamForm({Key? key}) : super(key: key);
+class QuizForm extends ConsumerStatefulWidget {
+  static const routName = '/quiz_form';
+  final String? examId;
+  const QuizForm({Key? key, this.examId}) : super(key: key);
 
   @override
-  State<ExamForm> createState() => _ExamFormState();
+  _QuizFormState createState() => _QuizFormState();
 }
 
-class _ExamFormState extends State<ExamForm> {
+class _QuizFormState extends ConsumerState<QuizForm> {
   final _formKey = GlobalKey<FormState>();
   Map<String, dynamic> quiz = {
-    'subject': '',
     'question': '',
     'op1': '',
     'op2': '',
@@ -30,7 +34,24 @@ class _ExamFormState extends State<ExamForm> {
     final _isValid = _formKey.currentState!.validate();
     if (_isValid) {
       _formKey.currentState!.save();
-      try {} catch (e) {}
+      try {
+        ref.read(examProvider.notifier).addQuiestionToExam(
+            widget.examId!,
+            Question(
+              id: DateTime.now().toIso8601String(),
+              question: quiz['question'],
+              options: [
+                quiz['op1'],
+                quiz['op2'],
+                quiz['op3'],
+                quiz['op4'],
+                quiz['op5'],
+              ],
+              answer: quiz['answer'],
+            ));
+
+        Navigator.of(context).pop();
+      } catch (e) {}
     }
   }
 
@@ -65,12 +86,6 @@ class _ExamFormState extends State<ExamForm> {
                         ),
                       ),
                       const SizedBox(height: 30),
-                      const InputTitle(title: 'Subject:'),
-                      const SizedBox(height: 10),
-                      InputText(
-                        hint: 'Math, Science, Tech ...etc',
-                        onSave: (value) => quiz['subject'] = value,
-                      ),
                       const SizedBox(height: 15),
                       const InputTitle(title: 'Question:'),
                       const SizedBox(height: 10),
@@ -124,7 +139,7 @@ class _ExamFormState extends State<ExamForm> {
                         ),
                         validator: (newValue) {
                           if (newValue!.isEmpty) {
-                            return 'قُمْ بإدخال القيمة رجاءً';
+                            return 'Please Enter your value';
                           }
                         },
                       ),

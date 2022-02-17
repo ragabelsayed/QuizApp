@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../config/constants.dart';
 import '../../../config/palette.dart';
 
@@ -24,7 +23,7 @@ class InputText extends StatelessWidget {
       ),
       validator: (newValue) {
         if (newValue!.isEmpty) {
-          return 'قُمْ بإدخال القيمة رجاءً';
+          return 'Please Enter your value';
         }
       },
       onSaved: (newValue) => onSave(newValue!),
