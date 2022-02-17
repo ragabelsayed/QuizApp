@@ -13,7 +13,7 @@ class ExamNotifier extends StateNotifier<List<Exam>> {
     state.add(exam);
   }
 
-  void addQuiestionToExam(String examId, Question question) {
+  void addQuestionToExam(String examId, Question question) {
     state.firstWhere((element) => element.id == examId).question.add(question);
   }
 }

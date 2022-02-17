@@ -72,7 +72,7 @@ class _SignupFormState extends State<SignupForm> {
             const Text('Signup'),
             const Spacer(),
             TextFormField(
-              keyboardType: TextInputType.name,
+              keyboardType: TextInputType.emailAddress,
               textInputAction: TextInputAction.next,
               controller: emailController,
               decoration: const InputDecoration(
@@ -97,6 +97,7 @@ class _SignupFormState extends State<SignupForm> {
               keyboardType: TextInputType.visiblePassword,
               textInputAction: TextInputAction.next,
               controller: passController,
+              obscureText: true,
               decoration: const InputDecoration(
                 fillColor: Palette.backgroundColor,
                 filled: true,
@@ -119,6 +120,7 @@ class _SignupFormState extends State<SignupForm> {
               keyboardType: TextInputType.visiblePassword,
               textInputAction: TextInputAction.done,
               controller: cPassController,
+              obscureText: true,
               decoration: const InputDecoration(
                 fillColor: Palette.backgroundColor,
                 filled: true,

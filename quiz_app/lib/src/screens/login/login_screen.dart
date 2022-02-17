@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_app/src/provider/auth_provider.dart';
-import 'package:quiz_app/src/screens/home/home_screen.dart';
-import 'package:quiz_app/src/screens/reset/forgot_password_screen.dart';
-import 'package:quiz_app/src/screens/signup/signup_screen.dart';
 import '../../config/utils.dart';
+import '../../provider/auth_provider.dart';
+import '../home/home_screen.dart';
+import '../reset_password/forgot_password_screen.dart';
+import '../signup/signup_screen.dart';
 import '/src/widgets/rounded_btn.dart';
 import '../../config/constants.dart';
 import '../../config/palette.dart';
@@ -36,7 +36,9 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       try {
         await Auth.signIn(
-            emailController.text.trim(), passwordController.text.trim());
+          emailController.text.trim(),
+          passwordController.text.trim(),
+        );
         Navigator.pushNamed(context, HomeScreen.routName);
       } on FirebaseAuthException catch (e) {
         Utils.showSnackBar(e.message);
@@ -77,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text('Login'),
                     const Spacer(),
                     TextFormField(
-                      keyboardType: TextInputType.name,
+                      keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       controller: emailController,
                       decoration: const InputDecoration(

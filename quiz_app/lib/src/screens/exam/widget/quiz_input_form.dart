@@ -35,7 +35,7 @@ class _QuizFormState extends ConsumerState<QuizForm> {
     if (_isValid) {
       _formKey.currentState!.save();
       try {
-        ref.read(examProvider.notifier).addQuiestionToExam(
+        ref.read(examProvider.notifier).addQuestionToExam(
             widget.examId!,
             Question(
               id: DateTime.now().toIso8601String(),
