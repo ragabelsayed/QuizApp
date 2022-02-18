@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:quiz_app/src/config/palette.dart';
 import 'package:quiz_app/src/config/utils.dart';
@@ -28,7 +27,6 @@ class _ExamScreenState extends ConsumerState<ExamScreen> {
   @override
   Widget build(BuildContext context) {
     final exams = ref.watch(examProvider);
-
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,

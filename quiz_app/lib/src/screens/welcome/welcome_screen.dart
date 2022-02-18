@@ -1,5 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz_app/src/config/enums.dart';
 import 'package:quiz_app/src/config/palette.dart';
 import 'package:quiz_app/src/screens/home/home_screen.dart';
 import 'package:quiz_app/src/screens/login/login_screen.dart';
@@ -13,7 +15,7 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: FirebaseAuth.instance.authStateChanges(),
+      stream: auth.FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Scaffold(
@@ -36,32 +38,40 @@ class WelcomeScreen extends StatelessWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: AppConstants.defaultPadding),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Spacer(flex: 2),
-                      Text(
-                        'Welcome to Quiz app,',
-                        style: Theme.of(context).textTheme.headline4?.copyWith(
-                            color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                      const Text('Who are you'),
-                      const Spacer(),
-                      RoundedBtn(
-                        text: 'Admin',
-                        padding: AppConstants.defaultPadding,
-                        onPress: () =>
-                            Navigator.pushNamed(context, LoginScreen.routName),
-                      ),
-                      const SizedBox(height: 15),
-                      RoundedBtn(
-                          text: 'Student',
+                  child: Consumer(
+                    builder: (context, ref, child) => Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Spacer(flex: 2),
+                        Text(
+                          'Welcome to Quiz app,',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headline4
+                              ?.copyWith(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        const Text('Who are you'),
+                        const Spacer(),
+                        RoundedBtn(
+                          text: 'Admin',
                           padding: AppConstants.defaultPadding,
                           onPress: () {
-                            print(1);
-                          }),
-                      const Spacer(flex: 2),
-                    ],
+                            Navigator.pushNamed(context, LoginScreen.routName);
+                            ref.read(userProvider.state).state = User.admin;
+                          },
+                        ),
+                        const SizedBox(height: 15),
+                        RoundedBtn(
+                            text: 'Student',
+                            padding: AppConstants.defaultPadding,
+                            onPress: () {
+                              ref.read(userProvider.state).state = User.student;
+                            }),
+                        const Spacer(flex: 2),
+                      ],
+                    ),
                   ),
                 ),
               ],
