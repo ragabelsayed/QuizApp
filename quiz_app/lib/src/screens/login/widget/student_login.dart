@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../config/constants.dart';
 import '../../../config/palette.dart';
+import '../../../widgets/custom_back_btn.dart';
 import '../../../widgets/rounded_btn.dart';
 import '../../home/home_screen.dart';
 
@@ -84,14 +85,7 @@ class _StudentLoginState extends State<StudentLogin> {
             ),
           ),
         ),
-        Positioned(
-          top: MediaQuery.of(context).viewPadding.top,
-          left: 10,
-          child: IconButton(
-            onPressed: () => Navigator.pop(context),
-            icon: const Icon(Icons.arrow_back),
-          ),
-        ),
+        const CustomBackBtn(),
       ],
     );
   }

@@ -4,8 +4,8 @@ import '../../config/constants.dart';
 import '../../config/palette.dart';
 import '../../config/utils.dart';
 import '../../provider/auth_provider.dart';
+import '../../widgets/custom_back_btn.dart';
 import '../../widgets/rounded_btn.dart';
-import '../login/login_screen.dart';
 
 class ForgotPasswordScreen extends StatefulWidget {
   static const routName = '/forgot_pass';
@@ -108,15 +108,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
             ),
           ),
-          Positioned(
-            top: MediaQuery.of(context).viewPadding.top,
-            left: 10,
-            child: IconButton(
-              onPressed: () =>
-                  Navigator.pushNamed(context, LoginScreen.routName),
-              icon: const Icon(Icons.arrow_back),
-            ),
-          ),
+          const CustomBackBtn(),
         ],
       ),
     );

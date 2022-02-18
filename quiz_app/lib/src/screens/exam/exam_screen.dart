@@ -6,6 +6,7 @@ import 'package:quiz_app/src/provider/exam_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/widgets/item_view.dart';
 import '../../config/constants.dart';
+import '../../widgets/custom_back_btn.dart';
 import 'widget/add_subject_btn.dart';
 import 'widget/quiz_input_form.dart';
 
@@ -54,14 +55,7 @@ class _ExamScreenState extends ConsumerState<ExamScreen> {
               ),
             ),
           ),
-          Positioned(
-            top: MediaQuery.of(context).viewPadding.top,
-            left: 10,
-            child: IconButton(
-              onPressed: () => Navigator.pop(context),
-              icon: const Icon(Icons.arrow_back),
-            ),
-          ),
+          const CustomBackBtn(),
           Positioned(
             top: MediaQuery.of(context).viewPadding.top,
             right: 20,

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/widgets/custom_back_btn.dart';
 import '../../../config/constants.dart';
 import '../../../config/palette.dart';
 import '../../../config/utils.dart';
@@ -182,6 +183,7 @@ class _AdminLoginState extends State<AdminLogin> {
             ),
           ),
         ),
+        const CustomBackBtn(),
       ],
     );
   }

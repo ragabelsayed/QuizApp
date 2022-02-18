@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:quiz_app/src/screens/login/login_screen.dart';
 import '../../config/constants.dart';
+import '../../widgets/custom_back_btn.dart';
 import 'widgets/signup_form.dart';
 
 class SignupScreen extends StatelessWidget {
@@ -17,15 +17,7 @@ class SignupScreen extends StatelessWidget {
           const SafeArea(
             child: SignupForm(),
           ),
-          Positioned(
-            top: MediaQuery.of(context).viewPadding.top,
-            left: 10,
-            child: IconButton(
-              onPressed: () =>
-                  Navigator.pushNamed(context, LoginScreen.routName),
-              icon: const Icon(Icons.arrow_back),
-            ),
-          ),
+          const CustomBackBtn(),
         ],
       ),
     );

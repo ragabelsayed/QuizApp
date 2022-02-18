@@ -1,11 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart' as auth;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_app/src/config/enums.dart';
-import 'package:quiz_app/src/config/palette.dart';
-import 'package:quiz_app/src/screens/home/home_screen.dart';
-import 'package:quiz_app/src/screens/login/login_screen.dart';
-import 'package:quiz_app/src/widgets/rounded_btn.dart';
+import '../../config/enums.dart';
+import '../../config/palette.dart';
+import '../../widgets/rounded_btn.dart';
+import '../home/home_screen.dart';
+import '../login/login_screen.dart';
 import '/src/config/constants.dart';
 
 class WelcomeScreen extends StatelessWidget {
