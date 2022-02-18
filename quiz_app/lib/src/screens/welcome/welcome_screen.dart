@@ -58,17 +58,19 @@ class WelcomeScreen extends StatelessWidget {
                           text: 'Admin',
                           padding: AppConstants.defaultPadding,
                           onPress: () {
-                            Navigator.pushNamed(context, LoginScreen.routName);
                             ref.read(userProvider.state).state = User.admin;
+                            Navigator.pushNamed(context, LoginScreen.routName);
                           },
                         ),
                         const SizedBox(height: 15),
                         RoundedBtn(
-                            text: 'Student',
-                            padding: AppConstants.defaultPadding,
-                            onPress: () {
-                              ref.read(userProvider.state).state = User.student;
-                            }),
+                          text: 'Student',
+                          padding: AppConstants.defaultPadding,
+                          onPress: () {
+                            ref.read(userProvider.state).state = User.student;
+                            Navigator.pushNamed(context, LoginScreen.routName);
+                          },
+                        ),
                         const Spacer(flex: 2),
                       ],
                     ),
