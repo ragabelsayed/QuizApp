@@ -56,8 +56,8 @@ class _StudentLoginState extends State<StudentLogin> {
                   const Text("Enter your informations below"),
                   const Spacer(),
                   TextFormField(
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
+                    keyboardType: TextInputType.name,
+                    textInputAction: TextInputAction.done,
                     controller: nameController,
                     decoration: const InputDecoration(
                       filled: true,

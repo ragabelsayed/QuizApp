@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:quiz_app/src/models/question.dart';
+import 'question.dart';
 
 class Exam {
   String id;
