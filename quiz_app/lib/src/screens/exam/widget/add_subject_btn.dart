@@ -18,6 +18,21 @@ class _AddSubjectBtnState extends ConsumerState<AddSubjectBtn> {
   TextEditingController _subjectController = TextEditingController();
   bool _validate = false;
 
+  Future<void> _saveForm() async {
+    if (_subjectController.text.isEmpty) {
+      setState(() => _validate = true);
+    } else {
+      ref.read(examProvider.notifier).addExam(
+            Exam(
+              id: DateTime.now().toIso8601String(),
+              subject: _subjectController.text,
+              question: [],
+            ),
+          );
+      Navigator.pop(context);
+    }
+  }
+
   @override
   void dispose() {
     _subjectController.dispose();
@@ -60,20 +75,7 @@ class _AddSubjectBtnState extends ConsumerState<AddSubjectBtn> {
                     RoundedBtn(
                       text: 'Save',
                       padding: AppConstants.defaultPadding,
-                      onPress: () {
-                        if (_subjectController.text.isEmpty) {
-                          setState(() => _validate = true);
-                        } else {
-                          ref.read(examProvider.notifier).addExam(
-                                Exam(
-                                  id: DateTime.now().toIso8601String(),
-                                  subject: _subjectController.text,
-                                  question: [],
-                                ),
-                              );
-                          Navigator.pop(context);
-                        }
-                      },
+                      onPress: () => _saveForm(),
                     ),
                   ],
                 ),

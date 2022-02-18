@@ -22,10 +22,10 @@ class Exam {
 
   factory Exam.fromMap(Map<String, dynamic> map) {
     return Exam(
-      id: map['id'] ?? '',
-      subject: map['subject'] ?? '',
+      id: map['id'],
+      subject: map['subject'],
       question:
-          List<Question>.from(map['question']?.map((x) => Question.fromMap(x))),
+          List<Question>.from(map['question'].map((x) => Question.fromMap(x))),
     );
   }
 

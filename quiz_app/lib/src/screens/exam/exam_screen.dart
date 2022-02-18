@@ -9,13 +9,25 @@ import '../../widgets/input_title.dart';
 import 'widget/add_subject_btn.dart';
 import 'widget/quiz_input_form.dart';
 
-class ExamScreen extends ConsumerWidget {
+class ExamScreen extends ConsumerStatefulWidget {
   static const routName = '/exam';
   const ExamScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<ExamScreen> createState() => _ExamScreenState();
+}
+
+class _ExamScreenState extends ConsumerState<ExamScreen> {
+  @override
+  void initState() {
+    ref.read(examProvider.notifier).fetchExamsData();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final exams = ref.watch(examProvider);
+
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
