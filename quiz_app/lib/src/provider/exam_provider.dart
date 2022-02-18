@@ -30,12 +30,23 @@ class ExamNotifier extends StateNotifier<List<Exam>> {
 
   Future<void> addExam(Exam exam) async {
     state = [...state, exam];
-    await exams.doc(exam.id).set(
-          exam.toMap(),
-        );
+    // await exams.doc(exam.id).set(
+    //       exam.toMap(),
+    //     );
   }
 
-  void addQuestionToExam(String examId, Question question) {
+  Future<void> addQuestionToExam(String examId, Question question) async {
     state.firstWhere((element) => element.id == examId).question.add(question);
+    // await exams.doc(examId).update({
+    //   'question': [question.toMap()]
+    // });
+  }
+
+  Future<void> saveAllExams() async {
+    for (var exam in state) {
+      await exams.doc(exam.id).set(
+            exam.toMap(),
+          );
+    }
   }
 }

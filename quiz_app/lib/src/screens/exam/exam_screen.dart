@@ -1,11 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/config/palette.dart';
+import 'package:quiz_app/src/config/utils.dart';
 import 'package:quiz_app/src/provider/exam_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/widgets/item_view.dart';
-import 'package:quiz_app/src/widgets/rounded_btn.dart';
 import '../../config/constants.dart';
-import '../../config/palette.dart';
-import '../../widgets/input_title.dart';
 import 'widget/add_subject_btn.dart';
 import 'widget/quiz_input_form.dart';
 
@@ -63,9 +64,39 @@ class _ExamScreenState extends ConsumerState<ExamScreen> {
               icon: const Icon(Icons.arrow_back),
             ),
           ),
+          Positioned(
+            top: MediaQuery.of(context).viewPadding.top,
+            right: 20,
+            child: ElevatedButton.icon(
+              style: ElevatedButton.styleFrom(
+                  shape: const StadiumBorder(), primary: Palette.primaryColor1),
+              icon: const Icon(Icons.save),
+              label: const Text('Save'),
+              onPressed: () => _saveExams(),
+            ),
+          ),
         ],
       ),
       floatingActionButton: const AddSubjectBtn(),
     );
+  }
+
+  Future<void> _saveExams() async {
+    showDialog(
+      context: context,
+      builder: (ctx) => const Center(
+        child: CircularProgressIndicator(
+          color: Palette.primaryColor1,
+        ),
+      ),
+    );
+    try {
+      await ref.read(examProvider.notifier).saveAllExams();
+      Utils.showSnackBar('All saved Successfully 👌');
+      Navigator.pop(context);
+    } on FirebaseAuthException catch (e) {
+      Utils.showSnackBar(e.message);
+      Navigator.pop(context);
+    }
   }
 }

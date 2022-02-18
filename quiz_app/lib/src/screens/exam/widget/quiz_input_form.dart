@@ -142,10 +142,11 @@ class _QuizFormState extends ConsumerState<QuizForm> {
                             return 'Please Enter your value';
                           }
                         },
+                        onSaved: (value) => quiz['answer'] = value,
                       ),
                       const SizedBox(height: 30),
                       RoundedBtn(
-                        text: 'Save',
+                        text: 'Add Question',
                         padding: AppConstants.defaultPadding,
                         onPress: () => _saveForm(),
                       ),
