@@ -1,14 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:quiz_app/src/config/palette.dart';
-import 'package:quiz_app/src/config/utils.dart';
-import 'package:quiz_app/src/provider/exam_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_app/src/widgets/item_view.dart';
 import '../../config/constants.dart';
+import '../../config/palette.dart';
+import '../../config/utils.dart';
+import '../../provider/exam_provider.dart';
 import '../../widgets/custom_back_btn.dart';
+import '../../widgets/item_view.dart';
 import 'widget/add_subject_btn.dart';
-import 'widget/quiz_input_form.dart';
+import 'widget/question_input_form.dart';
 
 class ExamScreen extends ConsumerStatefulWidget {
   static const routName = '/exam';
@@ -48,7 +48,7 @@ class _ExamScreenState extends ConsumerState<ExamScreen> {
                   imagePath: 'assets/icons/exam.png',
                   onPress: () => Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (context) => QuizForm(examId: exams[i].id),
+                      builder: (context) => QuestionForm(examId: exams[i].id),
                     ),
                   ),
                 ),
@@ -61,7 +61,9 @@ class _ExamScreenState extends ConsumerState<ExamScreen> {
             right: 20,
             child: ElevatedButton.icon(
               style: ElevatedButton.styleFrom(
-                  shape: const StadiumBorder(), primary: Palette.primaryColor1),
+                shape: const StadiumBorder(),
+                primary: Palette.primaryColor1,
+              ),
               icon: const Icon(Icons.save),
               label: const Text('Save'),
               onPressed: () => _saveExams(),

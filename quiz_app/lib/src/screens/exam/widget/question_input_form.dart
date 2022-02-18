@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_app/src/models/exam.dart';
-import 'package:quiz_app/src/models/question.dart';
-import 'package:quiz_app/src/provider/exam_provider.dart';
-import 'package:quiz_app/src/screens/exam/widget/input_text.dart';
-import 'package:quiz_app/src/widgets/input_title.dart';
 import '../../../config/constants.dart';
 import '../../../config/palette.dart';
+import '../../../models/question.dart';
+import '../../../provider/exam_provider.dart';
+import '../../../widgets/input_title.dart';
 import '../../../widgets/rounded_btn.dart';
+import 'input_text.dart';
 
-class QuizForm extends ConsumerStatefulWidget {
-  static const routName = '/quiz_form';
+class QuestionForm extends ConsumerStatefulWidget {
+  static const routName = '/question_form';
   final String? examId;
-  const QuizForm({Key? key, this.examId}) : super(key: key);
+  const QuestionForm({Key? key, this.examId}) : super(key: key);
 
   @override
-  _QuizFormState createState() => _QuizFormState();
+  _QuestionFormState createState() => _QuestionFormState();
 }
 
-class _QuizFormState extends ConsumerState<QuizForm> {
+class _QuestionFormState extends ConsumerState<QuestionForm> {
   final _formKey = GlobalKey<FormState>();
   Map<String, dynamic> quiz = {
     'question': '',

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../screens/exam/exam_screen.dart';
-import '../screens/exam/widget/quiz_input_form.dart';
+import '../screens/exam/widget/question_input_form.dart';
 import '../screens/home/home_screen.dart';
 import '../screens/reset_password/forgot_password_screen.dart';
 import '../screens/signup/signup_screen.dart';
@@ -16,7 +16,7 @@ class AppRoutes {
     ForgotPasswordScreen.routName: (ctx) => const ForgotPasswordScreen(),
     HomeScreen.routName: (cxt) => const HomeScreen(),
     ExamScreen.routName: (ctx) => const ExamScreen(),
-    QuizForm.routName: (cxt) => const QuizForm(),
+    QuestionForm.routName: (cxt) => const QuestionForm(),
     StudentBoardScreen.routName: (cxt) => const StudentBoardScreen(),
   };
 }
