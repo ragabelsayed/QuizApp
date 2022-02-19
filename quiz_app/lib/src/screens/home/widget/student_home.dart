@@ -8,6 +8,7 @@ import '../../../provider/exam_provider.dart';
 import '../../../provider/quetion_provider.dart';
 import '../../../widgets/input_title.dart';
 import '../../../widgets/item_view.dart';
+import '../../welcome/welcome_screen.dart';
 
 class StudentHome extends ConsumerWidget {
   const StudentHome({Key? key}) : super(key: key);
@@ -52,17 +53,18 @@ class StudentHome extends ConsumerWidget {
         ),
         Positioned(
           top: MediaQuery.of(context).viewPadding.top,
-          child: Row(
-            children: [
-              IconButton(
-                onPressed: () => Navigator.pop(context),
-                icon: const Icon(Icons.arrow_back),
-              ),
-              SizedBox(width: MediaQuery.of(context).size.width / 4),
-              const InputTitle(title: 'Pick Quiz'),
-            ],
+          right: 10,
+          child: TextButton.icon(
+            style: TextButton.styleFrom(primary: Palette.primaryColor1),
+            onPressed: () => Navigator.pushNamedAndRemoveUntil(
+              context,
+              WelcomeScreen.routName,
+              (route) => false,
+            ),
+            icon: const Icon(Icons.exit_to_app),
+            label: const Text('LogOut'),
           ),
-        )
+        ),
       ],
     );
   }

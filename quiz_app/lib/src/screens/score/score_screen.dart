@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/models/student.dart';
 import 'package:quiz_app/src/provider/students_provider.dart';
@@ -10,7 +9,6 @@ import '../../config/constants.dart';
 import '../../config/palette.dart';
 import '../../config/utils.dart';
 import '../../provider/quetion_provider.dart';
-import '../welcome/welcome_screen.dart';
 
 class ScoreScreen extends StatelessWidget {
   static const routName = '/score';
@@ -76,6 +74,7 @@ class ScoreScreen extends StatelessWidget {
                             HomeScreen.routName,
                             (route) => false,
                           );
+                          ref.read(scoreProvider.state).state = 0;
                         } on FirebaseAuthException catch (e) {
                           Utils.showSnackBar(e.message);
                           Navigator.pushNamedAndRemoveUntil(

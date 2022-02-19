@@ -16,6 +16,7 @@ class StudentNotifier extends StateNotifier<Student> {
         );
 
   void setStudentName(String name) {
+    state = Student(id: DateTime.now().toIso8601String(), name: '', score: []);
     state.name = name;
   }
 
