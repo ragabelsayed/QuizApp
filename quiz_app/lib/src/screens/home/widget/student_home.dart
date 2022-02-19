@@ -6,6 +6,7 @@ import '../../../config/palette.dart';
 import '../../../config/utils.dart';
 import '../../../provider/exam_provider.dart';
 import '../../../provider/quetion_provider.dart';
+import '../../../widgets/input_title.dart';
 import '../../../widgets/item_view.dart';
 import '../../welcome/welcome_screen.dart';
 
@@ -29,23 +30,39 @@ class StudentHome extends ConsumerWidget {
             ),
             error: (error, stackTrace) =>
                 Utils.showSnackBar('Something wrong happened'),
-            data: (exams) => ListView.builder(
-              itemCount: exams.length,
-              padding: const EdgeInsets.symmetric(
-                horizontal: AppConstants.defaultPadding,
-                vertical: 40,
-              ),
-              itemBuilder: (context, i) => Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: ItemView(
-                  title: exams[i].subject,
-                  subTitle: '${exams[i].question.length} Question',
-                  imagePath: 'assets/icons/exam.png',
-                  onPress: () {
-                    ref.read(questionProvider.notifier).getQuestions(exams[i]);
-                    Navigator.pushNamed(context, QuizScreen.routName);
-                  },
-                ),
+            data: (exams) => Padding(
+              padding: const EdgeInsets.only(top: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.only(left: 20),
+                    child: InputTitle(title: 'Choose Exam'),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      itemCount: exams.length,
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: AppConstants.defaultPadding,
+                        vertical: 10,
+                      ),
+                      itemBuilder: (context, i) => Padding(
+                        padding: const EdgeInsets.only(top: 10),
+                        child: ItemView(
+                          title: exams[i].subject,
+                          subTitle: '${exams[i].question.length} Question',
+                          imagePath: 'assets/icons/exam.png',
+                          onPress: () {
+                            ref
+                                .read(questionProvider.notifier)
+                                .getQuestions(exams[i]);
+                            Navigator.pushNamed(context, QuizScreen.routName);
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
