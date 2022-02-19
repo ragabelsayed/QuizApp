@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:quiz_app/src/config/palette.dart';
+
+import 'palette.dart';
 
 class AppConstants {
   static const double defaultPadding = 20.0;
