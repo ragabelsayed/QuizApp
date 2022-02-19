@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:quiz_app/src/config/palette.dart';
+import 'package:quiz_app/src/screens/score/score_screen.dart';
 import '../../config/constants.dart';
 import '../../config/utils.dart';
 import '../../provider/quetion_provider.dart';
@@ -88,10 +90,9 @@ class _QuizScreenState extends ConsumerState<QuizScreen> {
                       ),
                       onPageChanged: (i) async {
                         setState(() => questionNumber = i + 1);
-
                         if (questionNumber == questions.length) {
-                          await Future.delayed(const Duration(seconds: 5));
-                          print('fffffffffff');
+                          await Future.delayed(const Duration(seconds: 1));
+                          Navigator.pushNamed(context, ScoreScreen.routName);
                         }
                       },
                     ),

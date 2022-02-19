@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 import '../../../config/constants.dart';
 import '../../../config/palette.dart';
+import '../../score/score_screen.dart';
 
 class ProgressBar extends StatelessWidget {
   const ProgressBar({Key? key}) : super(key: key);
@@ -26,12 +27,11 @@ class ProgressBar extends StatelessWidget {
             percent: 1.0,
             barRadius: const Radius.circular(30),
             animation: true,
-            animationDuration: 6000,
+            animationDuration: 60000,
             backgroundColor: Palette.backgroundColor,
             linearGradient: Palette.kPrimaryGradient,
-            onAnimationEnd: () {
-              print('end');
-            },
+            onAnimationEnd: () =>
+                Navigator.pushNamed(context, ScoreScreen.routName),
           ),
           Positioned.fill(
             child: Padding(
@@ -41,7 +41,7 @@ class ProgressBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text('1 minute'),
+                  const Text('10 minute'),
                   SvgPicture.asset("assets/icons/clock.svg"),
                 ],
               ),

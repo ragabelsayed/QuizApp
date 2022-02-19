@@ -45,6 +45,7 @@ class QuestionCard extends StatelessWidget {
                   press: () async {
                     if (question.answer == index) {
                       ref.read(answerProvider.state).state = Answer.correct;
+                      ref.read(scoreProvider.state).state++;
                     } else {
                       ref.read(answerProvider.state).state = Answer.notCorrect;
                     }

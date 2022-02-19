@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz_app/src/provider/students_provider.dart';
 import '../../../config/constants.dart';
 import '../../../config/palette.dart';
 import '../../../widgets/custom_back_btn.dart';
 import '../../../widgets/rounded_btn.dart';
 import '../../home/home_screen.dart';
 
-class StudentLogin extends StatefulWidget {
+class StudentLogin extends ConsumerStatefulWidget {
   const StudentLogin({Key? key}) : super(key: key);
 
   @override
-  State<StudentLogin> createState() => _StudentLoginState();
+  ConsumerState<StudentLogin> createState() => _StudentLoginState();
 }
 
-class _StudentLoginState extends State<StudentLogin> {
+class _StudentLoginState extends ConsumerState<StudentLogin> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController nameController = TextEditingController();
 
@@ -20,6 +22,9 @@ class _StudentLoginState extends State<StudentLogin> {
     final _isValid = _formKey.currentState!.validate();
     if (_isValid) {
       _formKey.currentState!.save();
+      ref
+          .read(studentProvider.notifier)
+          .setStudentName(nameController.text.trim());
       Navigator.pushNamed(context, HomeScreen.routName);
     }
   }

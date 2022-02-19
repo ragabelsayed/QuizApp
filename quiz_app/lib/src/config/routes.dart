@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/screens/score/score_screen.dart';
 import '../screens/exam/exam_screen.dart';
 import '../screens/exam/widget/question_input_form.dart';
 import '../screens/home/home_screen.dart';
@@ -20,5 +21,6 @@ class AppRoutes {
     QuestionForm.routName: (cxt) => const QuestionForm(),
     StudentBoardScreen.routName: (cxt) => const StudentBoardScreen(),
     QuizScreen.routName: (context) => const QuizScreen(),
+    ScoreScreen.routName: (context) => const ScoreScreen(),
   };
 }

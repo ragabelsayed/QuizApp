@@ -3,12 +3,10 @@ import 'dart:convert';
 class Student {
   String id;
   String name;
-  String subject;
   List<Result> score;
   Student({
     required this.id,
     required this.name,
-    required this.subject,
     required this.score,
   });
 
@@ -16,7 +14,6 @@ class Student {
     return {
       'id': id,
       'name': name,
-      'subject': subject,
       'score': score.map((x) => x.toMap()).toList(),
     };
   }
@@ -25,7 +22,6 @@ class Student {
     return Student(
       id: map['id'] ?? '',
       name: map['name'] ?? '',
-      subject: map['subject'] ?? '',
       score: List<Result>.from(map['score']?.map((x) => Result.fromMap(x))),
     );
   }
