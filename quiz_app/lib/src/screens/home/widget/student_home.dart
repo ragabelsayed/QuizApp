@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:quiz_app/src/screens/quiz/quiz_screen.dart';
 import '../../../config/constants.dart';
 import '../../../config/palette.dart';
 import '../../../config/utils.dart';
 import '../../../provider/exam_provider.dart';
+import '../../../provider/quetion_provider.dart';
 import '../../../widgets/input_title.dart';
 import '../../../widgets/item_view.dart';
 
@@ -40,11 +42,8 @@ class StudentHome extends ConsumerWidget {
                   subTitle: '${exams[i].question.length} Question',
                   imagePath: 'assets/icons/exam.png',
                   onPress: () {
-                    //   return Navigator.of(context).push(
-                    //   MaterialPageRoute(
-                    //     builder: (context) => QuizForm(examId: exams[i].id),
-                    //   ),
-                    // );
+                    ref.read(questionProvider.notifier).getQuestions(exams[i]);
+                    Navigator.pushNamed(context, QuizScreen.routName);
                   },
                 ),
               ),

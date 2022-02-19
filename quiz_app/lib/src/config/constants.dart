@@ -4,6 +4,7 @@ import 'package:quiz_app/src/config/palette.dart';
 
 class AppConstants {
   static const double defaultPadding = 20.0;
+  static const duration = Duration(milliseconds: 250);
 
   static final imageBackground = SvgPicture.asset(
     'assets/icons/bg.svg',
