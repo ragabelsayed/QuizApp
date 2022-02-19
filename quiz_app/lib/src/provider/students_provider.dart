@@ -2,9 +2,25 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../models/student.dart';
 
-// final studentProvider = FutureProvider<List<Student>>((ref) async {
-//   return ;
-// });
+final studentslistProvider =
+    FutureProvider.autoDispose<List<Student>>((ref) async {
+  final students = FirebaseFirestore.instance.collection('students/');
+  final snapshots = await students.get();
+  List<Student> studentlist = [];
+  var data = snapshots.docs.map(
+    (snapshot) {
+      return snapshot.data();
+    },
+  ).toList();
+
+  for (var student in data) {
+    if (student.isNotEmpty) {
+      studentlist.add(Student.fromMap(student));
+    }
+  }
+  return studentlist;
+});
+
 final studentProvider = StateNotifierProvider<StudentNotifier, Student>((ref) {
   return StudentNotifier();
 });

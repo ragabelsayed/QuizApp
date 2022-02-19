@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/src/config/palette.dart';
+
+import '../../../models/student.dart';
 
 class StudentDataTableView extends StatelessWidget {
-  const StudentDataTableView({Key? key}) : super(key: key);
+  final List<Student> students;
+  const StudentDataTableView({Key? key, required this.students})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,12 +20,11 @@ class StudentDataTableView extends StatelessWidget {
       interactive: true,
       radius: const Radius.circular(30),
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         physics: const AlwaysScrollableScrollPhysics(),
         child: DataTable(
           columns: _getColumns(columns),
-          rows: [],
-          // _getRow(extras: , context: context),
+          rows: _getRow(students: students, context: context),
           headingTextStyle:
               Theme.of(context).textTheme.headline6!.copyWith(fontSize: 18),
           columnSpacing: MediaQuery.of(context).size.width / 10,
@@ -46,62 +50,37 @@ class StudentDataTableView extends StatelessWidget {
       )
       .toList();
 
-  // List<DataRow> _getRow(
-  // {
-  // required List<Extra> extras,
-  //  required BuildContext context}) =>
-  // extras.map(
-  //   (extra) {
-  //     final cells = [
-  //       extra.user.knownAs,
-  //       extra.cash,
-  //       // intl.DateFormat.Md().format(extra.dataTime),
-  //     ];
-  //     return DataRow(
-  //       cells: [
-  //         ..._getCells(cells),
-  //         DataCell(
-  //           TextButton(
-  //             child: Transform.rotate(
-  //               angle: 600,
-  //               origin: const Offset(0.0, 0.0),
-  //               child: const Icon(
-  //                 Icons.forward_rounded,
-  //                 size: 30,
-  //                 color: Colors.amber,
-  //               ),
-  //             ),
-  //             onPressed: () {
-  //               // showDialog(
-  //               //   context: context,
-  //               //   builder: (context) {
-  //               //     return ExtraView(extra: extra);
-  //               //   },
-  //               // );
-  //             },
-  //           ),
-  //         ),
-  //       ].reversed.toList(),
-  //     );
-  //   },
-  // ).toList();
+  List<DataRow> _getRow(
+          {required List<Student> students, required BuildContext context}) =>
+      students.map(
+        (student) {
+          final cells = [
+            student.name,
+            student.score.first.subject,
+            student.score.first.result,
+            student.score.first.result,
+          ];
+          return DataRow(cells: [..._getCells(cells)].toList());
+        },
+      ).toList();
 
-  // List<DataCell> _getCells(List<dynamic> cells) {
-  //   var cellList = cells
-  //       .map(
-  //         (cell) => DataCell(
-  //           SizedBox(
-  //             width: 56,
-  //             child: Text(
-  //               '$cell',
-  //               textAlign: TextAlign.center,
-  //               overflow: TextOverflow.ellipsis,
-  //             ),
-  //           ),
-  //           // placeholder: true,
-  //         ),
-  //       )
-  //       .toList();
-  //   return cellList;
-  // }
+  List<DataCell> _getCells(List<dynamic> cells) {
+    var cellList = cells
+        .map(
+          (cell) => DataCell(
+            SizedBox(
+              width: 56,
+              child: Text(
+                '$cell',
+                textAlign: TextAlign.center,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(color: Palette.kSecondaryColor),
+              ),
+            ),
+            // placeholder: true,
+          ),
+        )
+        .toList();
+    return cellList;
+  }
 }
