@@ -15,7 +15,7 @@ class QuestionForm extends ConsumerStatefulWidget {
   const QuestionForm({Key? key, this.examId}) : super(key: key);
 
   @override
-  _QuestionFormState createState() => _QuestionFormState();
+  ConsumerState<QuestionForm> createState() => _QuestionFormState();
 }
 
 class _QuestionFormState extends ConsumerState<QuestionForm> {
@@ -34,21 +34,21 @@ class _QuestionFormState extends ConsumerState<QuestionForm> {
     if (_isValid) {
       _formKey.currentState!.save();
       try {
-        ref.read(examProvider.notifier).addQuestionToExam(
-            widget.examId!,
-            Question(
-              id: DateTime.now().toIso8601String(),
-              question: quiz['question'],
-              options: [
-                quiz['op1'],
-                quiz['op2'],
-                quiz['op3'],
-                quiz['op4'],
-                quiz['op5'],
-              ],
-              answer: quiz['answer'],
-            ));
-
+        await ref.read(examProvider.notifier).addQuestionToExam(
+              widget.examId!,
+              Question(
+                id: DateTime.now().toIso8601String(),
+                question: quiz['question'],
+                options: [
+                  quiz['op1'],
+                  quiz['op2'],
+                  quiz['op3'],
+                  quiz['op4'],
+                  quiz['op5'],
+                ],
+                answer: int.parse(quiz['answer']),
+              ),
+            );
         Navigator.of(context).pop();
       } catch (e) {}
     }

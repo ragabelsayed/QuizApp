@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../models/exam.dart';
 import '../models/question.dart';
 
@@ -42,9 +43,9 @@ class ExamNotifier extends StateNotifier<List<Exam>> {
 
   Future<void> addQuestionToExam(String examId, Question question) async {
     state.firstWhere((element) => element.id == examId).question.add(question);
-    // await exams.doc(examId).update({
-    //   'question': [question.toMap()]
-    // });
+    await exams.doc(examId).update({
+      'question': [question.toMap()]
+    });
   }
 
   Future<void> saveAllExams() async {

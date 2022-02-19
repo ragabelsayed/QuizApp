@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:quiz_app/src/config/palette.dart';
-import 'package:quiz_app/src/screens/score/score_screen.dart';
 import '../../config/constants.dart';
-import '../../config/utils.dart';
+import '../../config/palette.dart';
 import '../../provider/quetion_provider.dart';
+import '../score/score_screen.dart';
 import 'widget/progress_bar.dart';
 import 'widget/question_card.dart';
 
