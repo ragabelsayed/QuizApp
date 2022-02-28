@@ -1,6 +1,6 @@
 # Quiz App
 Mobile app with two users, either admin or student.
-# Requirements
+## Requirements
 - [:heavy_check_mark:] Admin interface.
      * Admin Login, Logout, Change password, Reset password by email.
      * Create exams, add exam questions, each question has up to 5 answers, choosing the correct answer
