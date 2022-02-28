@@ -1,4 +1,4 @@
-## Quiz App
+# Quiz App
 Mobile app with two users, either admin or student.
 # Requirements
 - [:heavy_check_mark:] Admin interface.
