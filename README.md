@@ -1,5 +1,5 @@
 # Quiz App
-Mobile app with two users either admin or student.
+Mobile app with two users either, admin or student.
 ## Requirements
 - [:heavy_check_mark:] Admin interface.
      * Admin Login, Logout, Change password, Reset password by email.
